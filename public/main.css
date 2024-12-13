@@ -1,0 +1,47 @@
+h1 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 30px;
+    color: black;
+}
+
+h2 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 30px;
+    color: black;
+}
+
+p,li {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+a:link {
+    color: darkorchid;
+    text-decoration: none;
+    padding: 5px;
+}
+
+/*visited*/
+a:visited {
+    color: purple;
+    text-decoration: none;
+    padding: 5px;
+}
+
+/*mouse over*/
+a:hover {
+    color: white;
+    text-decoration: none;
+    background-color: darkorchid;
+    padding: 5px;
+}
+
+/* selected link */
+a:active {
+    color: greenyellow;
+    text-decoration: none;
+    padding: 5px;
+}
+
+body {
+    color: darksalmon;
+}
