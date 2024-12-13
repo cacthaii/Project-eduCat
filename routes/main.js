@@ -14,6 +14,9 @@ router.get("/about", (req, res) => {
     res.render("about.ejs", siteName)
 }); 
 
+router.get("/search", (req, res) => {
+    res.render("search.ejs", siteName)
+}); 
 
 // Export the router object so index.js can access it
 module.exports = router;
