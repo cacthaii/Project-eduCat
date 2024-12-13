@@ -18,7 +18,7 @@ app.use(express.urlencoded({ extended: true}));
 app.use(express.static(__dirname + '/public'));
 
 // Define database connection
-/* 
+
 const db = mysql.createConnection ({
     host: 'localhost',
     user: 'educat_app',
@@ -34,7 +34,6 @@ db.connect((err) => {
 });
 global.db = db;
 
-*/
 
 // Load the route handlers
 const mainRoutes = require("./routes/main");  
