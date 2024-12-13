@@ -11,7 +11,17 @@ router.get("/", (req, res) => {
 }); 
 
 router.get("/about", (req, res) => {
-    res.render("about.ejs", siteName)
+    let sqlquery = "SELECT * FROM modules"; // query database to get all the modules
+    // Execute sql query
+    db.query(sqlquery, (err, result) => {
+        if (err) {
+            res.redirect('./'); 
+        }
+        let newData = Object.assign({}, siteName, {availableModules:result});
+        console.log(newData)
+        res.render("about.ejs", newData)
+        
+    });
 }); 
 
 router.get("/search", (req, res) => {
