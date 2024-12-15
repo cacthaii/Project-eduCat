@@ -4,12 +4,19 @@
         <title><%= siteName %></title>
     </head>
     <body>
-        <h1>You are correct! (:</h1>
+        <h1>Correct Answer!</h1>
         <% if (nextQuestionId) { %>
-            <a href="/question/<%= nextQuestionId %>">Next question -></a>
+            <a href="/question/<%= nextQuestionId %>">Next Question</a>
+            <br>
+            <br>
+            <br>
+            <a href="/">Return to Home</a>
         <% } else { %>
-            <p>No more questions available, you've completed all questions!</p>
-            <a href="/search">Return to Search</a>
+            <h2>Congratulations! You've completed all questions in this module.</h2>
+            <a href="/search">Search for another module</a>
+            <br>
+            <br>
+            <a href="/">Return to Home</a>
         <% } %>
     </body>
 </html>

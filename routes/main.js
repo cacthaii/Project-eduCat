@@ -72,9 +72,9 @@ router.get('/search-results', (req, res) => {
 router.get('/question/:id', (req, res) => {
     const questionId = req.params.id;
 
-    // Fetch the question
+    // Fetch the question with module_id
     const questionQuery = `
-        SELECT question_id, question_text, question_type 
+        SELECT question_id, module_id, question_text, question_type 
         FROM questions 
         WHERE question_id = ?
     `;
@@ -120,7 +120,10 @@ router.get('/question/:id', (req, res) => {
 router.post('/check-answer', (req, res) => {
     console.log('Received request body:', req.body);
 
-    const { question_id, question_type } = req.body;
+    const { question_id, question_type, module_id } = req.body;
+
+    console.log('Multiple Choice - Answer ID:', req.body.answer_id);
+    console.log('Single Choice - Answer:', req.body.answer);
 
     let checkAnswerQuery, values;
 
@@ -161,16 +164,16 @@ router.post('/check-answer', (req, res) => {
         console.log('Query result:', result);
 
         if (result.length > 0 && result[0].is_correct) {
-            // Correct answer
+            // Correct answer - find next question in the same module
             const nextQuestionQuery = `
                 SELECT question_id 
                 FROM questions 
-                WHERE question_id > ? 
+                WHERE module_id = ? AND question_id > ? 
                 ORDER BY question_id ASC 
                 LIMIT 1
             `;
 
-            db.query(nextQuestionQuery, [question_id], (err, nextQuestion) => {
+            db.query(nextQuestionQuery, [module_id, question_id], (err, nextQuestion) => {
                 if (err) {
                     console.error('Next question query error:', err);
                     return res.status(500).send("Database error");
@@ -182,6 +185,7 @@ router.post('/check-answer', (req, res) => {
                 res.render('correct-answer', {
                     siteName,
                     nextQuestionId,
+                    module_id, // Pass module_id to the template
                 });
             });
         } else {
