@@ -1,13 +1,13 @@
 h1 {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 30px;
-    color: black;
+    color: darkred;
 }
 
 h2 {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 30px;
-    color: black;
+    color: darkred;
 }
 
 p,li {
@@ -15,7 +15,7 @@ p,li {
 }
 
 a:link {
-    color: darkorchid;
+    color: darksalmon;
     text-decoration: none;
     padding: 5px;
 }
@@ -37,11 +37,11 @@ a:hover {
 
 /* selected link */
 a:active {
-    color: greenyellow;
+    color: darksalmon;
     text-decoration: none;
     padding: 5px;
 }
 
 body {
-    color: darksalmon;
+    color: darkorchid;
 }
