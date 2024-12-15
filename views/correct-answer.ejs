@@ -1,0 +1,15 @@
+<!doctype html>
+<html>
+    <head>
+        <title><%= siteName %></title>
+    </head>
+    <body>
+        <h1>You are correct! (:</h1>
+        <% if (nextQuestionId) { %>
+            <a href="/question/<%= nextQuestionId %>">Next question -></a>
+        <% } else { %>
+            <p>No more questions available, you've completed all questions!</p>
+            <a href="/search">Return to Search</a>
+        <% } %>
+    </body>
+</html>

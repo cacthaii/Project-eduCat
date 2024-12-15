@@ -9,15 +9,27 @@
 
         <% if (question.question_type === 'multiple_choice') { %>
             <p>Select the correct answer:</p>
-            <ul>
-                <% answers.forEach(answer => { %>
-                    <li><button><%= answer.answer_text %></button></li>
-                <% }); %>
-            </ul>
+            <form action="/check-answer" method="POST">
+                <ul>
+                    <% answers.forEach(answer => { %>
+                        <li>
+                            <button type="submit" name="answer_id" value="<%= answer.answer_id %>">
+                                <%= answer.answer_text %> 
+                                <!-- For debugging -->
+                                <!-- (Correct: <%= answer.is_correct %>) -->
+                            </button>
+                        </li>
+                    <% }); %>
+                </ul>
+                <input type="hidden" name="question_id" value="<%= question.question_id %>">
+                <input type="hidden" name="question_type" value="<%= question.question_type %>">
+            </form>
         <% } else if (question.question_type === 'single_choice') { %>
             <p>Enter your answer:</p>
-            <form>
-                <input type="text" name="answer" placeholder="Type your answer here">
+            <form action="/check-answer" method="POST">
+                <input type="text" name="answer" placeholder="Type your answer here" required>
+                <input type="hidden" name="question_id" value="<%= question.question_id %>">
+                <input type="hidden" name="question_type" value="<%= question.question_type %>">
                 <button type="submit">Submit</button>
             </form>
         <% } %>

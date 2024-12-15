@@ -74,20 +74,23 @@ router.get('/question/:id', (req, res) => {
 
     // Fetch the question
     const questionQuery = `
-        SELECT question_text, question_type 
+        SELECT question_id, question_text, question_type 
         FROM questions 
         WHERE question_id = ?
     `;
 
     // Fetch answers for the question
     const answerQuery = `
-        SELECT answer_text 
+        SELECT answer_id, answer_text, is_correct
         FROM answers 
         WHERE question_id = ?
     `;
 
     db.query(questionQuery, [questionId], (err, questionResult) => {
-        if (err) throw err;
+        if (err) {
+            console.error('Question query error:', err);
+            return res.status(500).send("Database error");
+        }
 
         if (!questionResult.length) {
             return res.status(404).send("Question not found");
@@ -96,7 +99,13 @@ router.get('/question/:id', (req, res) => {
         const question = questionResult[0];
 
         db.query(answerQuery, [questionId], (err, answerResults) => {
-            if (err) throw err;
+            if (err) {
+                console.error('Answers query error:', err);
+                return res.status(500).send("Database error");
+            }
+
+            console.log('Question:', question);
+            console.log('Answers:', answerResults);
 
             const newData = Object.assign({}, siteName, {
                 question,
@@ -105,6 +114,84 @@ router.get('/question/:id', (req, res) => {
 
             res.render("question-page", newData);
         });
+    });
+});
+
+router.post('/check-answer', (req, res) => {
+    console.log('Received request body:', req.body);
+
+    const { question_id, question_type } = req.body;
+
+    let checkAnswerQuery, values;
+
+    if (question_type === 'multiple_choice') {
+        // For multiple choice, check by answer_id
+        const answer_id = req.body.answer_id;
+        console.log('Multiple Choice - Answer ID:', answer_id);
+        checkAnswerQuery = `
+            SELECT is_correct 
+            FROM answers 
+            WHERE answer_id = ? AND question_id = ?
+        `;
+        values = [answer_id, question_id];
+    } else if (question_type === 'single_choice') {
+        // For single choice, check by exact answer_text
+        const answer = req.body.answer;
+        console.log('Single Choice - Answer:', answer);
+        checkAnswerQuery = `
+            SELECT is_correct 
+            FROM answers 
+            WHERE answer_text = ? AND question_id = ?
+        `;
+        values = [answer, question_id];
+    } else {
+        console.error('Invalid question type');
+        return res.status(400).send("Invalid question type");
+    }
+
+    console.log('Query:', checkAnswerQuery);
+    console.log('Values:', values);
+
+    db.query(checkAnswerQuery, values, (err, result) => {
+        if (err) {
+            console.error('Database query error:', err);
+            return res.status(500).send("Database error");
+        }
+
+        console.log('Query result:', result);
+
+        if (result.length > 0 && result[0].is_correct) {
+            // Correct answer
+            const nextQuestionQuery = `
+                SELECT question_id 
+                FROM questions 
+                WHERE question_id > ? 
+                ORDER BY question_id ASC 
+                LIMIT 1
+            `;
+
+            db.query(nextQuestionQuery, [question_id], (err, nextQuestion) => {
+                if (err) {
+                    console.error('Next question query error:', err);
+                    return res.status(500).send("Database error");
+                }
+
+                const nextQuestionId = nextQuestion.length > 0 ? nextQuestion[0].question_id : null;
+
+                console.log('Rendering correct-answer, next question:', nextQuestionId);
+                res.render('correct-answer', {
+                    siteName,
+                    nextQuestionId,
+                });
+            });
+        } else {
+            // Incorrect answer
+            console.log('Rendering incorrect-answer for question:', question_id);
+            res.render('incorrect-answer', {
+                siteName,
+                question_id,
+            });
+        }
     });
 });
 
