@@ -24,9 +24,52 @@ router.get("/about", (req, res) => {
     });
 }); 
 
-router.get("/search", (req, res) => {
-    res.render("search.ejs", siteName)
-}); 
+router.get('/search', (req, res) => {
+    // Query for module names
+    const moduleQuery = 'SELECT module_name FROM modules';
+
+    // Query for unique difficulty levels
+    const difficultyQuery = 'SELECT DISTINCT difficulty FROM questions';
+
+    // Execute both queries and render the form
+    db.query(moduleQuery, (err, modules) => {
+        if (err) throw err;
+
+        db.query(difficultyQuery, (err, difficulties) => {
+            if (err) throw err;
+
+            let newData = Object.assign({}, siteName, { modules, difficulties });
+            res.render("search", newData); // Pass siteName, modules, and difficulties to the search template
+        });
+    });
+});
+
+
+router.get('/search-results', (req, res) => {
+    const { module_name, difficulty } = req.query;
+
+    // Query to get questions based on the selected module and difficulty
+    const query = `
+        SELECT q.question_text
+        FROM questions q
+        JOIN modules m ON q.module_id = m.module_id
+        WHERE m.module_name = ? AND q.difficulty = ?
+    `;
+    const values = [module_name, difficulty];
+
+    db.query(query, values, (err, results) => {
+        if (err) throw err;
+
+        let newData = Object.assign({}, siteName, {
+            questions: results,
+            module_name,
+            difficulty,
+        });
+        res.render("search-results", newData); // Pass siteName, questions, module_name, and difficulty to the search-results template
+    });
+});
+
+
 
 // Export the router object so index.js can access it
 module.exports = router;

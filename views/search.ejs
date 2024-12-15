@@ -6,5 +6,25 @@
   <body>
     <h1>Find a subject to pounce on</h1>
     <p>Search through our paw~some resources!</p>
+    <!-- Search Form -->
+    <form action="/search-results" method="GET">
+      <label for="module">Select Module:</label>
+      <select name="module_name" id="module" required>
+          <option value="">--Select Module--</option>
+          <% modules.forEach(module => { %>
+              <option value="<%= module.module_name %>"><%= module.module_name %></option>
+          <% }); %>
+      </select>
+
+      <label for="difficulty">Select Difficulty:</label>
+      <select name="difficulty" id="difficulty" required>
+          <option value="">--Select Difficulty--</option>
+          <% difficulties.forEach(difficulty => { %>
+              <option value="<%= difficulty.difficulty %>"><%= difficulty.difficulty %></option>
+          <% }); %>
+      </select>
+
+      <button type="submit">Search</button>
+  </form>
   </body>
 </html>

@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+  <head>
+    <title><%=siteName%></title>
+  </head>
+  <body>
+    <h1>Search Results</h1>
+    <p>Results for Module: <%= module_name %>, Difficulty: <%= difficulty %></p>
+
+    <% if (questions.length > 0) { %>
+        <ul>
+            <% questions.forEach(question => { %>
+                <li><%= question.question_text %></li>
+            <% }); %>
+        </ul>
+    <% } else { %>
+        <p>No questions found matching your criteria.</p>
+    <% } %>
+
+    <!-- Back to Search -->
+    <a href="/search">Back to Search</a>
+  </body>
+</html>
