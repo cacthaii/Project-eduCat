@@ -74,7 +74,7 @@ router.get('/question/:id', (req, res) => {
 
     // Fetch the question with module_id
     const questionQuery = `
-        SELECT question_id, module_id, question_text, question_type 
+        SELECT question_id, module_id, question_text, question_type, difficulty 
         FROM questions 
         WHERE question_id = ?
     `;

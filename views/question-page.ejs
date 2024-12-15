@@ -4,7 +4,7 @@
         <title><%= siteName %></title>
     </head>
     <body>
-        <h1>Question!</h1>
+        <h1>Question! Difficulty: <%= question.difficulty %></h1>
         <p><%= question.question_text %></p>
 
         <% if (question.question_type === 'multiple_choice') { %>
