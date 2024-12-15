@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+    <head>
+        <title><%= siteName %></title>
+    </head>
+    <body>
+        <h1>Question!</h1>
+        <p><%= question.question_text %></p>
+
+        <% if (question.question_type === 'multiple_choice') { %>
+            <p>Select the correct answer:</p>
+            <ul>
+                <% answers.forEach(answer => { %>
+                    <li><button><%= answer.answer_text %></button></li>
+                <% }); %>
+            </ul>
+        <% } else if (question.question_type === 'single_choice') { %>
+            <p>Enter your answer:</p>
+            <form>
+                <input type="text" name="answer" placeholder="Type your answer here">
+                <button type="submit">Submit</button>
+            </form>
+        <% } %>
+
+        <a href="/search">Want to search for something else?</a>
+    </body>
+</html>

@@ -6,11 +6,11 @@ const router = express.Router();
 var siteName = {siteName: "eduCat"};
 
 // Handle the main routes
-router.get("/", (req, res) => {
+router.get('/', (req, res) => {
     res.render("index.ejs", siteName)
 }); 
 
-router.get("/about", (req, res) => {
+router.get('/about', (req, res) => {
     let sqlquery = "SELECT * FROM modules"; // query database to get all the modules
     // Execute sql query
     db.query(sqlquery, (err, result) => {
@@ -50,7 +50,7 @@ router.get('/search-results', (req, res) => {
 
     // Query to get questions based on the selected module and difficulty
     const query = `
-        SELECT q.question_text
+        SELECT q.question_id, q.question_text
         FROM questions q
         JOIN modules m ON q.module_id = m.module_id
         WHERE m.module_name = ? AND q.difficulty = ?
@@ -69,6 +69,44 @@ router.get('/search-results', (req, res) => {
     });
 });
 
+router.get('/question/:id', (req, res) => {
+    const questionId = req.params.id;
+
+    // Fetch the question
+    const questionQuery = `
+        SELECT question_text, question_type 
+        FROM questions 
+        WHERE question_id = ?
+    `;
+
+    // Fetch answers for the question
+    const answerQuery = `
+        SELECT answer_text 
+        FROM answers 
+        WHERE question_id = ?
+    `;
+
+    db.query(questionQuery, [questionId], (err, questionResult) => {
+        if (err) throw err;
+
+        if (!questionResult.length) {
+            return res.status(404).send("Question not found");
+        }
+
+        const question = questionResult[0];
+
+        db.query(answerQuery, [questionId], (err, answerResults) => {
+            if (err) throw err;
+
+            const newData = Object.assign({}, siteName, {
+                question,
+                answers: answerResults,
+            });
+
+            res.render("question-page", newData);
+        });
+    });
+});
 
 
 // Export the router object so index.js can access it
