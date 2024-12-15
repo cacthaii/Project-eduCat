@@ -199,6 +199,51 @@ router.post('/check-answer', (req, res) => {
     });
 });
 
+router.get('/module/:id', (req, res) => {
+    const moduleId = req.params.id;
+    
+    // Query to get module details
+    const moduleQuery = "SELECT * FROM modules WHERE module_id = ?";
+    
+    // Query to get all questions for this module
+    const questionsQuery = `
+        SELECT question_id, question_text, difficulty 
+        FROM questions 
+        WHERE module_id = ? 
+        ORDER BY difficulty, question_id
+    `;
+    
+    // Execute module query first
+    db.query(moduleQuery, [moduleId], (err, moduleResult) => {
+        if (err) {
+            console.error('Module query error:', err);
+            res.redirect('./');
+            return;
+        }
+        
+        if (!moduleResult.length) {
+            res.status(404).send("Module not found");
+            return;
+        }
+        
+        // Then execute questions query
+        db.query(questionsQuery, [moduleId], (err, questionsResult) => {
+            if (err) {
+                console.error('Questions query error:', err);
+                res.redirect('./');
+                return;
+            }
+            
+            // Combine all data
+            let newData = Object.assign({}, siteName, {
+                module: moduleResult[0],
+                questions: questionsResult
+            });
+            
+            res.render("module-questions.ejs", newData);
+        });
+    });
+});
 
 // Export the router object so index.js can access it
 module.exports = router;

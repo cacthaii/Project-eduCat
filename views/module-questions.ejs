@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+    <head>
+        <title><%=siteName%> - <%= module.module_name %></title>
+    </head>
+    <body>
+        <h1><%= module.module_name %></h1>
+        <p><%= module.description %></p>
+    
+        <h2>Questions:</h2>
+        <% if (questions && questions.length > 0) { %>
+        <ul>
+            <% questions.forEach(function(question) { %>
+            <li>
+                <a href="/question/<%= question.question_id %>">
+                <%= question.question_text %>
+                </a>
+                - Difficulty: <%= question.difficulty %>
+            </li>
+            <% }); %>
+        </ul>
+        <% } else { %>
+        <p>No questions available for this module.</p>
+        <% } %>
+    
+        <p><a href="/about">Back to Modules</a></p>
+    </body>
+</html>
