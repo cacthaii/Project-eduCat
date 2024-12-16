@@ -1,0 +1,19 @@
+<!doctype html>
+<html>
+    <head>
+        <title><%= siteName %></title>
+        <link rel="stylesheet"  type="text/css" href="/main.css" />
+    </head>
+    <body>
+        <h1>Welcome to the Gauntlet!</h1>
+        <p>Enter your username to begin the challenge:</p>
+        
+        <form action="/start-gauntlet" method="POST">
+            <input type="text" name="username" maxlength="20" required placeholder="Enter username">
+            <button type="submit">Start Challenge!</button>
+        </form>
+        
+        <br>
+        <a href="/">Back out?</a>
+    </body>
+</html>

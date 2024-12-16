@@ -5,12 +5,11 @@
         <link rel="stylesheet"  type="text/css" href="/main.css" />
     </head>
     <body>
-        <h1>Incorrect Answer :(</h1>
-        <p>Sorry, that's not quite right. Please try again.</p>
+        <h1>Game Over, <%= username %>!</h1>
+        <h2>Your final score is <%= question_id %>/24</h2>
         
-        <a href="/question/<%= question_id %>">Retry this question</a>
         <br>
-        <a href="/search">Search for another question</a>
+        <a href="/gauntlet">Try Again?</a>
         <br>
         <a href="/">Return to Home</a>
     </body>

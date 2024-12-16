@@ -5,43 +5,38 @@
         <link rel="stylesheet"  type="text/css" href="/main.css" />
     </head>
     <body>
-        <h1>Here's your question! Difficulty: (<%= question.difficulty %>)</h1>
+        <h1>Challenger: <%= username %></h1>
+        <h2>Question #<%= question.question_id %> - Difficulty: <%= question.difficulty %></h2>
         <p><%= question.question_text %></p>
 
         <% if (question.question_type === 'multiple_choice') { %>
             <p>Please select the correct answer:</p>
-            <form action="/check-answer" method="POST">
+            <form action="/check-gauntlet-answer" method="POST">
                 <ul>
                     <% answers.forEach(answer => { %>
                         <li>
                             <button type="submit" name="answer_id" value="<%= answer.answer_id %>">
-                                <%= answer.answer_text %> 
-                                <!-- For debugging -->
-                                <!-- (Correct: <%= answer.is_correct %>) -->
+                                <%= answer.answer_text %>
                             </button>
                         </li>
                     <% }); %>
                 </ul>
                 <input type="hidden" name="question_id" value="<%= question.question_id %>">
-                <input type="hidden" name="module_id" value="<%= question.module_id %>">
                 <input type="hidden" name="question_type" value="<%= question.question_type %>">
+                <input type="hidden" name="username" value="<%= username %>">
             </form>
         <% } else if (question.question_type === 'single_choice') { %>
             <p>Please enter your answer exactly, matching the format seen in the question:</p>
-            <form action="/check-answer" method="POST">
+            <form action="/check-gauntlet-answer" method="POST">
                 <input type="text" name="answer" placeholder="Type your answer here" required>
                 <input type="hidden" name="question_id" value="<%= question.question_id %>">
-                <input type="hidden" name="module_id" value="<%= question.module_id %>">
                 <input type="hidden" name="question_type" value="<%= question.question_type %>">
+                <input type="hidden" name="username" value="<%= username %>">
                 <button type="submit">Submit</button>
             </form>
         <% } %>
 
         <br>
-        <br>
-        <a href="/search">Want to search for something else?</a>
-        <br>
-        <br>
-        <a href="/">Return to Home</a>
+        <a href="/">Give Up? :(</a>
     </body>
 </html>

@@ -6,10 +6,10 @@
   </head>
   <body>
     <h1>Find some questions to pounce on</h1>
-    <p>Search through our paw~some modules!</p>
+    <p>Search through our "paw"some modules!</p>
     <!-- Search Form -->
     <form action="/search-results" method="GET">
-      <label for="module">Select Module:</label>
+      <label for="module">Select a module!:</label>
       <select name="module_name" id="module" required>
           <option value="">--Select Module--</option>
           <% modules.forEach(module => { %>
@@ -27,5 +27,7 @@
 
       <button type="submit">Search</button>
   </form>
+  <br>
+  <a href="/">Return to Home</a>
   </body>
 </html>

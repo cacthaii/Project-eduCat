@@ -5,17 +5,16 @@
         <link rel="stylesheet"  type="text/css" href="/main.css" />
     </head>
     <body>
-        <h1>Correct Answer!</h1>
+        <h1>Correct answer, well done!</h1>
         <% if (nextQuestionId) { %>
+            <br>
             <a href="/question/<%= nextQuestionId %>">Next Question</a>
-            <br>
-            <br>
             <br>
             <a href="/">Return to Home</a>
         <% } else { %>
             <h2>Congratulations! You've completed all questions in this module.</h2>
-            <a href="/search">Search for another module</a>
             <br>
+            <a href="/search">Search for another module</a>
             <br>
             <a href="/">Return to Home</a>
         <% } %>

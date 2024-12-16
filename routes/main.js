@@ -245,5 +245,141 @@ router.get('/module/:id', (req, res) => {
     });
 });
 
+// Gauntlet entry page
+router.get('/gauntlet', (req, res) => {
+    res.render('gauntlet.ejs', siteName);
+});
+
+// Handle username submission and start gauntlet
+router.post('/start-gauntlet', (req, res) => {
+    const username = req.body.username;
+    
+    // Insert username into users table
+    const insertQuery = "INSERT INTO users (username) VALUES (?)";
+    db.query(insertQuery, [username], (err, result) => {
+        if (err) {
+            console.error('Error inserting user:', err);
+            res.redirect('/gauntlet');
+            return;
+        }
+        
+        // Get the first question (lowest question_id)
+        const questionQuery = `
+            SELECT question_id, question_text, question_type, difficulty
+            FROM questions
+            ORDER BY question_id ASC
+            LIMIT 1
+        `;
+        
+        db.query(questionQuery, (err, questions) => {
+            if (err || !questions.length) {
+                console.error('Error getting first question:', err);
+                res.redirect('/gauntlet');
+                return;
+            }
+            
+            // Get answers for the question
+            const answerQuery = `
+                SELECT answer_id, answer_text
+                FROM answers
+                WHERE question_id = ?
+            `;
+            
+            db.query(answerQuery, [questions[0].question_id], (err, answers) => {
+                if (err) {
+                    console.error('Error getting answers:', err);
+                    res.redirect('/gauntlet');
+                    return;
+                }
+                
+                let newData = Object.assign({}, siteName, {
+                    username: username,
+                    question: questions[0],
+                    answers: answers
+                });
+                
+                res.render('gauntlet-questions.ejs', newData);
+            });
+        });
+    });
+});
+
+// Handle gauntlet answer checking
+router.post('/check-gauntlet-answer', (req, res) => {
+    const { question_id, question_type, username } = req.body;
+    
+    let checkAnswerQuery, values;
+    
+    if (question_type === 'multiple_choice') {
+        const answer_id = req.body.answer_id;
+        checkAnswerQuery = `
+            SELECT is_correct 
+            FROM answers 
+            WHERE answer_id = ? AND question_id = ?
+        `;
+        values = [answer_id, question_id];
+    } else {
+        const answer = req.body.answer;
+        checkAnswerQuery = `
+            SELECT is_correct 
+            FROM answers 
+            WHERE answer_text = ? AND question_id = ?
+        `;
+        values = [answer, question_id];
+    }
+    
+    db.query(checkAnswerQuery, values, (err, result) => {
+        if (err) {
+            console.error('Database query error:', err);
+            return res.status(500).send("Database error");
+        }
+        
+        if (result.length > 0 && result[0].is_correct) {
+            // Get next question
+            const nextQuestionQuery = `
+                SELECT question_id, question_text, question_type, difficulty
+                FROM questions
+                WHERE question_id > ?
+                ORDER BY question_id ASC
+                LIMIT 1
+            `;
+            
+            db.query(nextQuestionQuery, [question_id], (err, questions) => {
+                if (err || !questions.length) {
+                    // No more questions - user completed the gauntlet!
+                    res.render('gauntlet-complete.ejs', { siteName, username });
+                    return;
+                }
+                
+                // Get answers for next question
+                const answerQuery = `
+                    SELECT answer_id, answer_text
+                    FROM answers
+                    WHERE question_id = ?
+                `;
+                
+                db.query(answerQuery, [questions[0].question_id], (err, answers) => {
+                    if (err) {
+                        console.error('Error getting answers:', err);
+                        res.redirect('/');
+                        return;
+                    }
+                    
+                    let newData = Object.assign({}, siteName, {
+                        username: username,
+                        question: questions[0],
+                        answers: answers
+                    });
+                    
+                    res.render('gauntlet-questions.ejs', newData);
+                });
+            });
+        } else {
+            // Wrong answer - game over
+            res.render('gauntlet-failed.ejs', { siteName, username, question_id });
+        }
+    });
+});
+
 // Export the router object so index.js can access it
 module.exports = router;
