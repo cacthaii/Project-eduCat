@@ -17,6 +17,7 @@ p,li {
 a:link {
     color: darksalmon;
     text-decoration: none;
+    font-family: Arial, Helvetica, sans-serif;
     padding: 5px;
 }
 
