@@ -7,30 +7,30 @@ INSERT INTO modules (module_name, description) VALUES
 ('Algebraic Expressions', 'Focuses on expressions, simplyfying expressions, expanding brackets, double brackets and triple brackets');
 
 INSERT INTO questions (module_id, question_text, question_type, difficulty) VALUES
-('5', 'What is the value of 7 in the number 2,731,656?', 'multiple_choice', 'easy');
-('5', 'What number is halfway between 250 and 850?', 'single_choice', 'easy');
-('5', 'The product of 7 x 8 = 56 , which statement would be true for the product of 700 x 80?', 'multiple_choice', 'easy');
-('5', 'Write the number two million, three hundred and two thousand, five hundred and one in figures.', 'multiple_choice', 'easy');
-('5', 'Calculate 7 + 8 x 12', 'multiple_choice', 'medium');
-('5', 'Calculate 5 + 3^2 - 20 / 2', 'single_choice', 'hard');
-('6', 'Calculate 56.3 + 4.93', 'multiple_choice', 'easy');
-('6', 'Calculate 1.2 x 0.4', 'multiple_choice', 'easy');
-('6', 'Find the value of 10 / 0.2', 'multiple_choice', 'easy');
-('6', 'Find the value of 55.77 / 11', 'multiple_choice', 'easy');
-('6', 'Tom buys milk and chocolate. Milk costs £1.35 and the chocolate costs £1.79. Tom pays with a £5 note, how much change should he get back?', 'multiple_choice', 'medium');
-('6', 'A family of two adults and four children want to go to a music festival together. Adult tickets are £23.25 each, and its £14.95 each for children. How much will it cost altogether for entry?', 'single_choice', 'hard');
-('7', '4, 7, 10, 13, 16, 19... Which expression correctly encapsulates this sequence?', 'multiple_choice', 'easy');
-('7', '2, 7, 12, 17, 22... What is the nth term of this sequence?', 'multiple_choice', 'easy');
-('7', '22, 20, 18, 16, 14, 12... What is the nth term of this sequence?', 'multiple_choice', 'easy');
-('7', '11, 15, 19, 23, 27, 31... Complete the missing value from the expression for the nth term of this sequence: 4n ___ ', 'multiple_choice', 'easy');
-('7', '44, 37, 30.. If these are the first 3 terms in the sequence, what position would the first term below zero be?', 'multiple_choice', 'medium');
-('7', 'The nth term of two different sequences are shown here: 2n - 1 and 10n - 3. Which number is in both sequences?', 'single_choice', 'hard');
-('8', 'Write an algebraic expression for 6 more than the value of x', 'multiple_choice', 'easy');
-('8', 'Simplify fully 15x - 2y - 6x - 5y', 'multiple_choice', 'easy');
-('8', 'Which of the following is not correct?', 'multiple_choice', 'easy');
-('8', 'If Jeff is 4 years older than Sam, where Jeff = J and Sam = S, which equation represents this accurately?', 'multiple_choice', 'easy');
-('8', 'If 3x - 6 represents one side of an equilateral triangle, which of the following would not give the perimeter of the triangle?', 'multiple_choice', 'medium');
-('8', 'Expand and simplify 6 + 5x(3x^2 + 3)', 'single_choice', 'hard');
+('1', 'What is the value of 7 in the number 2,731,656?', 'multiple_choice', 'easy');
+('1', 'What number is halfway between 250 and 850?', 'single_choice', 'easy');
+('1', 'The product of 7 x 8 = 56 , which statement would be true for the product of 700 x 80?', 'multiple_choice', 'easy');
+('1', 'Write the number two million, three hundred and two thousand, five hundred and one in figures.', 'multiple_choice', 'easy');
+('1', 'Calculate 7 + 8 x 12', 'multiple_choice', 'medium');
+('1', 'Calculate 5 + 3^2 - 20 / 2', 'single_choice', 'hard');
+('2', 'Calculate 56.3 + 4.93', 'multiple_choice', 'easy');
+('2', 'Calculate 1.2 x 0.4', 'multiple_choice', 'easy');
+('2', 'Find the value of 10 / 0.2', 'multiple_choice', 'easy');
+('2', 'Find the value of 55.77 / 11', 'multiple_choice', 'easy');
+('2', 'Tom buys milk and chocolate. Milk costs £1.35 and the chocolate costs £1.79. Tom pays with a £5 note, how much change should he get back?', 'multiple_choice', 'medium');
+('2', 'A family of two adults and four children want to go to a music festival together. Adult tickets are £23.25 each, and its £14.95 each for children. How much will it cost altogether for entry?', 'single_choice', 'hard');
+('3', '4, 7, 10, 13, 16, 19... Which expression correctly encapsulates this sequence?', 'multiple_choice', 'easy');
+('3', '2, 7, 12, 17, 22... What is the nth term of this sequence?', 'multiple_choice', 'easy');
+('3', '22, 20, 18, 16, 14, 12... What is the nth term of this sequence?', 'multiple_choice', 'easy');
+('3', '11, 15, 19, 23, 27, 31... Complete the missing value from the expression for the nth term of this sequence: 4n ___ ', 'multiple_choice', 'easy');
+('3', '44, 37, 30.. If these are the first 3 terms in the sequence, what position would the first term below zero be?', 'multiple_choice', 'medium');
+('3', 'The nth term of two different sequences are shown here: 2n - 1 and 10n - 3. Which number is in both sequences?', 'single_choice', 'hard');
+('4', 'Write an algebraic expression for 6 more than the value of x', 'multiple_choice', 'easy');
+('4', 'Simplify fully 15x - 2y - 6x - 5y', 'multiple_choice', 'easy');
+('4', 'Which of the following is not correct?', 'multiple_choice', 'easy');
+('4', 'If Jeff is 4 years older than Sam, where Jeff = J and Sam = S, which equation represents this accurately?', 'multiple_choice', 'easy');
+('4', 'If 3x - 6 represents one side of an equilateral triangle, which of the following would not give the perimeter of the triangle?', 'multiple_choice', 'medium');
+('4', 'Expand and simplify 6 + 5x(3x^2 + 3)', 'single_choice', 'hard');
 
 INSERT INTO answers (question_id, answer_text, is_correct) VALUES
 ('1', 'Seven million', FALSE),
