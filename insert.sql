@@ -1,6 +1,7 @@
 USE educat;
 
 -- Reset auto-increment values
+ALTER TABLE modules AUTO_INCREMENT = 1;
 ALTER TABLE questions AUTO_INCREMENT = 1;
 ALTER TABLE answers AUTO_INCREMENT = 1;
 
@@ -10,10 +11,10 @@ DELETE FROM questions;
 DELETE FROM modules;
 
 INSERT INTO modules (module_name, description) VALUES
-('Whole Numbers', 'Writing, ordering whole numbers as well as multiplication and division of whole numbers'),
-('Decimals', 'Study place value and ordering decimals, adding, subtracting, multiplying and dividing decimals'),
-('Sequences', 'Get Familiar with nth term, nth term of quadratic sequences, geometric sequences and special sequences'),
-('Algebraic Expressions', 'Focuses on expressions, simplyfying expressions, expanding brackets, double brackets and triple brackets');
+(1, 'Whole Numbers', 'Writing, ordering whole numbers as well as multiplication and division of whole numbers'),
+(2, 'Decimals', 'Study place value and ordering decimals, adding, subtracting, multiplying and dividing decimals'),
+(3, 'Sequences', 'Get Familiar with nth term, nth term of quadratic sequences, geometric sequences and special sequences'),
+(4, 'Algebraic Expressions', 'Focuses on expressions, simplyfying expressions, expanding brackets, double brackets and triple brackets');
 
 -- Temporarily disable foreign key checks
 SET FOREIGN_KEY_CHECKS=0;
