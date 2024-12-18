@@ -1,8 +1,8 @@
 USE educat;
 
--- Reset auto-increment values
-ALTER TABLE modules AUTO_INCREMENT = 1;
-ALTER TABLE questions AUTO_INCREMENT = 1;
+-- Temporarily disable foreign key checks
+SET FOREIGN_KEY_CHECKS=0;
+
 ALTER TABLE answers AUTO_INCREMENT = 1;
 
 -- Clear existing data (if any) to avoid conflicts
@@ -10,14 +10,16 @@ DELETE FROM answers;
 DELETE FROM questions;
 DELETE FROM modules;
 
-INSERT INTO modules (module_name, description) VALUES
-(1, 'Whole Numbers', 'Writing, ordering whole numbers as well as multiplication and division of whole numbers'),
-(2, 'Decimals', 'Study place value and ordering decimals, adding, subtracting, multiplying and dividing decimals'),
-(3, 'Sequences', 'Get Familiar with nth term, nth term of quadratic sequences, geometric sequences and special sequences'),
-(4, 'Algebraic Expressions', 'Focuses on expressions, simplyfying expressions, expanding brackets, double brackets and triple brackets');
+-- Reset auto-increment values
+ALTER TABLE answers AUTO_INCREMENT = 1;
+ALTER TABLE questions AUTO_INCREMENT = 1;
+ALTER TABLE modules AUTO_INCREMENT = 1;
 
--- Temporarily disable foreign key checks
-SET FOREIGN_KEY_CHECKS=0;
+INSERT INTO modules (module_name, description) VALUES
+('Whole Numbers', 'Writing, ordering whole numbers as well as multiplication and division of whole numbers'),
+('Decimals', 'Study place value and ordering decimals, adding, subtracting, multiplying and dividing decimals'),
+('Sequences', 'Get Familiar with nth term, nth term of quadratic sequences, geometric sequences and special sequences'),
+('Algebraic Expressions', 'Focuses on expressions, simplyfying expressions, expanding brackets, double brackets and triple brackets');
 
 INSERT INTO questions (question_id, module_id, question_text, question_type, difficulty) VALUES
 (1, 1, 'What is the value of 7 in the number 2,731,656?', 'multiple_choice', 'easy'),
@@ -45,8 +47,6 @@ INSERT INTO questions (question_id, module_id, question_text, question_type, dif
 (23, 4, 'If 3x - 6 represents one side of an equilateral triangle, which of the following would not give the perimeter of the triangle?', 'multiple_choice', 'medium'),
 (24, 4, 'Expand and simplify 6 + 5x(3x^2 + 3)', 'single_choice', 'hard');
 
--- Re-enable foreign key checks
-SET FOREIGN_KEY_CHECKS=1;
 
 INSERT INTO answers (question_id, answer_text, is_correct) VALUES
 (1, 'Seven million', FALSE),
@@ -133,3 +133,6 @@ INSERT INTO answers (question_id, answer_text, is_correct) VALUES
 (23, '9x + 12', TRUE),
 (23, '3x - 6 + 3x - 6 + 3x - 6', FALSE),
 (24, '15x^3 + 15x + 6', TRUE);
+
+-- Re-enable foreign key checks
+SET FOREIGN_KEY_CHECKS=1;
