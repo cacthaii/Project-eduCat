@@ -23,7 +23,7 @@ INSERT INTO modules (module_name, description) VALUES
 
 INSERT INTO questions (question_id, module_id, question_text, question_type, difficulty) VALUES
 (1, 1, 'What is the value of 7 in the number 2,731,656?', 'multiple_choice', 'easy'),
-(2, 1, 'What number is halfway between 250 and 850?', 'single_choice', 'easy'),
+(2, 1, 'What number is halfway between 250 and 850?', 'multiple_choice', 'easy'),
 (3, 1, 'The product of 7 x 8 = 56 , which statement would be true for the product of 700 x 80?', 'multiple_choice', 'easy'),
 (4, 1, 'Write the number two million, three hundred and two thousand, five hundred and one in figures.', 'multiple_choice', 'easy'),
 (5, 1, 'Calculate 7 + 8 x 12', 'multiple_choice', 'medium'),
@@ -72,7 +72,7 @@ INSERT INTO answers (question_id, answer_text, is_correct) VALUES
 (6, '4', TRUE),
 (7, '10.56', FALSE),
 (7, '60.23', FALSE),
-(7, '61.23', FALSE),
+(7, '61.23', TRUE),
 (7, '1.055', FALSE),
 (8, '4.8', FALSE),
 (8, '0.48', TRUE),
