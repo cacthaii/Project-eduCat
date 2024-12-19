@@ -9,7 +9,7 @@
         <p><%= question.question_text %></p>
 
         <% if (question.question_type === 'multiple_choice') { %>
-            <p>Please select the correct answer:</p>
+            <p>Please select your answer:</p>
             <form action="/check-answer" method="POST">
                 <ul>
                     <% answers.forEach(answer => { %>

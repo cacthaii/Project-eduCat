@@ -1,0 +1,32 @@
+/* 
+
+Welcome to the educat app!
+**************************
+Excuse the terrible cat puns, it was meant to be a play on the word "educate"!
+More importantly, the app functions as a site that aims to provide revision on the specified topics
+through multiple choice and single answer questions in a quiz-like style, ranging from 3 available 
+difficulties: easy, medium, hard.
+
+**************************************************************************************************************
+The homepage contains links to all other pages, with a small welcome message.
+
+The about link takes the user to a page displaying all available modules, listed, and as links that then 
+display all of that module's available questions while also telling them what difficulty they are.
+The user can then choose which question they'll try, after every successful answer they will advance 
+through all the questions in the module, after which they'll be notified they have succesfully completed the 
+module!
+
+Our second link the find link takes te user to a search page, where they can pick from the dropdowns
+and specifically look for the questions within the selected range.
+
+Lastly, the Gauntlet serves as a fun "mode" where the user can enter their name, and have a go at 
+doing all the questions in one go. 
+At any point of failure a "game-over" screen is displayed with the user's score; upon success a
+congratulatory screen is presented to the user.
+
+**************************************************************************************************************
+Please enjoy the app, and see if you can complete the gauntlet yourself!
+
+#cacthaii
+
+*/
